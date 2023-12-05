@@ -5,14 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.juliano.restapispringboot.model.Person;
 import com.juliano.restapispringboot.services.PersonServices;
+import com.juliano.restapispringboot.vo.v1.PersonVO;
 
 @RestController
 @RequestMapping("/person")
@@ -20,53 +24,44 @@ public class PersonController {
     
     @Autowired
     @Lazy
-    private PersonServices service;
-    //private PersonServices service = new PersonServices() -> Instacia automaticamente
+    private PersonServices service; // -> instancia objeto automaticamente
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Person> findAll(){
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<PersonVO> findAll(){
                 
             return service.findAll();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person findById(@PathVariable(value = "id") String id) throws Exception{
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public PersonVO findById(@PathVariable(value = "id") Long id) throws Exception{
                 
             return service.findById(id);
     }
 
-    @RequestMapping(
-    method = RequestMethod.POST,
+    @PostMapping(
     consumes = MediaType.APPLICATION_JSON_VALUE, //JSON na entrada
     produces = MediaType.APPLICATION_JSON_VALUE) //JSON na saida
-    public Person create(@RequestBody Person person) throws Exception{
+    public PersonVO create(@RequestBody PersonVO person){
                 
             return service.create(person);
     }
 
-    @RequestMapping(
-    method = RequestMethod.PUT,
+    @PutMapping(
     consumes = MediaType.APPLICATION_JSON_VALUE, //JSON na entrada
     produces = MediaType.APPLICATION_JSON_VALUE) //JSON na saida
-    public Person update(@RequestBody Person person) throws Exception{
+    public PersonVO update(@RequestBody PersonVO person) throws Exception{
                 
             return service.update(person);
     }
 
-    @RequestMapping(
-    value = "/{id}",
-    method = RequestMethod.DELETE)
-    public void delete(@PathVariable(value = "id") String id) throws Exception{
+    @DeleteMapping(
+    value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception{
                 
-            service.delete(id);;
+            service.delete(id);
+            return ResponseEntity.noContent().build(); //Retorna o status-code da operacao
     }
 
-    private Double convertToDouble(String strNumber) {
-        if(strNumber == null) return 0D;
-        String number = strNumber.replaceAll(",", "."); //converte , em .
-        if(isNumeric(number)) return Double.parseDouble(number);
-        return 0D;
-    }
 
     private boolean isNumeric(String strNumber) {
         if(strNumber == null) return false;

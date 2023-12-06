@@ -17,9 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.juliano.restapispringboot.services.PersonServices;
 import com.juliano.restapispringboot.vo.v1.PersonVO;
+import com.juliano.restapispringboot.vo.v2.PersonVO2;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/person/v1")
 public class PersonController {
     
     @Autowired
@@ -44,6 +45,16 @@ public class PersonController {
     public PersonVO create(@RequestBody PersonVO person){
                 
             return service.create(person);
+    }
+
+    //Usado caso necessite atualizar os parametos da API sem quebrar o sistema
+    @PostMapping(
+    value = "v2",
+    consumes = MediaType.APPLICATION_JSON_VALUE, //JSON na entrada
+    produces = MediaType.APPLICATION_JSON_VALUE) //JSON na saida
+    public PersonVO2 createV2(@RequestBody PersonVO2 person){
+                
+            return service.createV2(person);
     }
 
     @PutMapping(

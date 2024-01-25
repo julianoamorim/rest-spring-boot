@@ -1,4 +1,4 @@
-CREATE SEQUENCE person_id_seq;
+/* CREATE SEQUENCE person_id_seq;
 
 CREATE TABLE public.person
 (
@@ -12,5 +12,16 @@ CREATE TABLE public.person
 
 
 ALTER TABLE public.person
-    OWNER to postgres;
+    OWNER to postgres; */
+
+CREATE TABLE person (
+    id SERIAL PRIMARY KEY,
+    address VARCHAR(255) NOT NULL,
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    gender VARCHAR(255)
+
+);
+
+
 

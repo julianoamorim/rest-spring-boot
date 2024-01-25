@@ -1,10 +1,12 @@
-package com.juliano.restapispringboot.vo.v2;
+package com.juliano.restapispringboot.data.dto.v1;
 
 import java.io.Serializable;
-import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 //Garante mais seguranca ao projeto, escondendo as classes Entity(Repositorio)
-public class PersonVO2 implements Serializable{
+@JsonPropertyOrder({"id", "firstName", "lastName", "adress", "gender"}) //ordem dos atributos no JSON
+public class PersonDTO implements Serializable{
     private static final long serialVersionUID = 1L;
 
     private Long id;
@@ -12,9 +14,8 @@ public class PersonVO2 implements Serializable{
     private String lastName;
     private String address;
     private String gender;
-    private Date birthday;
     
-    public PersonVO2() {
+    public PersonDTO() {
     }
 
     public static long getSerialversionuid() {
@@ -61,14 +62,6 @@ public class PersonVO2 implements Serializable{
         this.gender = gender;
     }
 
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -78,7 +71,6 @@ public class PersonVO2 implements Serializable{
         result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
         result = prime * result + ((address == null) ? 0 : address.hashCode());
         result = prime * result + ((gender == null) ? 0 : gender.hashCode());
-        result = prime * result + ((birthday == null) ? 0 : birthday.hashCode());
         return result;
     }
 
@@ -90,7 +82,7 @@ public class PersonVO2 implements Serializable{
             return false;
         if (getClass() != obj.getClass())
             return false;
-        PersonVO2 other = (PersonVO2) obj;
+        PersonDTO other = (PersonDTO) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
@@ -116,19 +108,8 @@ public class PersonVO2 implements Serializable{
                 return false;
         } else if (!gender.equals(other.gender))
             return false;
-        if (birthday == null) {
-            if (other.birthday != null)
-                return false;
-        } else if (!birthday.equals(other.birthday))
-            return false;
         return true;
     }
-
-    
-
-    
-
-    
     
 }
 

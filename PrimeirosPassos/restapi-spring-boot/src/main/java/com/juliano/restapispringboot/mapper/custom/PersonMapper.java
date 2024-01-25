@@ -4,14 +4,14 @@ import java.util.Date;
 
 import org.springframework.stereotype.Service;
 
+import com.juliano.restapispringboot.data.dto.v2.PersonDTO2;
 import com.juliano.restapispringboot.model.Person;
-import com.juliano.restapispringboot.vo.v2.PersonVO2;
 
 @Service
 public class PersonMapper {
 
-    public PersonVO2 convertEntityToVO(Person person){
-        PersonVO2 vo = new PersonVO2();
+    public PersonDTO2 convertEntityToDTO(Person person){
+        PersonDTO2 vo = new PersonDTO2();
         vo.setId(person.getId());
         vo.setAddress(person.getAddress());
         vo.setBirthday(new Date());
@@ -22,7 +22,7 @@ public class PersonMapper {
     }
 
     //transformando VO en Entity(p o banco de dados)
-    public Person convertVOToEntity(PersonVO2 person){
+    public Person convertDTOToEntity(PersonDTO2 person){
         Person entity = new Person();
         entity.setId(person.getId());
         entity.setAddress(person.getAddress());

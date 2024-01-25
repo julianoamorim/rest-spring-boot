@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.juliano.restapispringboot.data.dto.v1.PersonDTO;
+import com.juliano.restapispringboot.data.dto.v2.PersonDTO2;
 import com.juliano.restapispringboot.services.PersonServices;
-import com.juliano.restapispringboot.vo.v1.PersonVO;
-import com.juliano.restapispringboot.vo.v2.PersonVO2;
 
 @RestController
 @RequestMapping("/api/person/v1")
@@ -27,22 +27,22 @@ public class PersonController {
     @Lazy
     private PersonServices service; // -> instancia objeto automaticamente
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<PersonVO> findAll(){
+    @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public List<PersonDTO> findAll(){
                 
             return service.findAll();
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public PersonVO findById(@PathVariable(value = "id") Long id) throws Exception{
+    @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public PersonDTO findById(@PathVariable(value = "id") Long id) throws Exception{
                 
             return service.findById(id);
     }
 
     @PostMapping(
-    consumes = MediaType.APPLICATION_JSON_VALUE, //JSON na entrada
-    produces = MediaType.APPLICATION_JSON_VALUE) //JSON na saida
-    public PersonVO create(@RequestBody PersonVO person){
+    consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, //JSON na entrada
+    produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}) //JSON na saida
+    public PersonDTO create(@RequestBody PersonDTO person){
                 
             return service.create(person);
     }
@@ -50,17 +50,17 @@ public class PersonController {
     //Usado caso necessite atualizar os parametos da API sem quebrar o sistema
     @PostMapping(
     value = "v2",
-    consumes = MediaType.APPLICATION_JSON_VALUE, //JSON na entrada
-    produces = MediaType.APPLICATION_JSON_VALUE) //JSON na saida
-    public PersonVO2 createV2(@RequestBody PersonVO2 person){
+    consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, //JSON na entrada
+    produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}) //JSON na saida
+    public PersonDTO2 createV2(@RequestBody PersonDTO2 person){
                 
             return service.createV2(person);
     }
 
     @PutMapping(
-    consumes = MediaType.APPLICATION_JSON_VALUE, //JSON na entrada
-    produces = MediaType.APPLICATION_JSON_VALUE) //JSON na saida
-    public PersonVO update(@RequestBody PersonVO person) throws Exception{
+    consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, //JSON na entrada
+    produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}) //JSON na saida
+    public PersonDTO update(@RequestBody PersonDTO person) throws Exception{
                 
             return service.update(person);
     }

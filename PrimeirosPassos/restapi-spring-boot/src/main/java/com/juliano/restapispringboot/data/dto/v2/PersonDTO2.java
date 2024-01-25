@@ -1,9 +1,10 @@
-package com.juliano.restapispringboot.vo.v1;
+package com.juliano.restapispringboot.data.dto.v2;
 
 import java.io.Serializable;
+import java.util.Date;
 
 //Garante mais seguranca ao projeto, escondendo as classes Entity(Repositorio)
-public class PersonVO implements Serializable{
+public class PersonDTO2 implements Serializable{
     private static final long serialVersionUID = 1L;
 
     private Long id;
@@ -11,8 +12,9 @@ public class PersonVO implements Serializable{
     private String lastName;
     private String address;
     private String gender;
+    private Date birthday;
     
-    public PersonVO() {
+    public PersonDTO2() {
     }
 
     public static long getSerialversionuid() {
@@ -59,6 +61,14 @@ public class PersonVO implements Serializable{
         this.gender = gender;
     }
 
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -68,6 +78,7 @@ public class PersonVO implements Serializable{
         result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
         result = prime * result + ((address == null) ? 0 : address.hashCode());
         result = prime * result + ((gender == null) ? 0 : gender.hashCode());
+        result = prime * result + ((birthday == null) ? 0 : birthday.hashCode());
         return result;
     }
 
@@ -79,7 +90,7 @@ public class PersonVO implements Serializable{
             return false;
         if (getClass() != obj.getClass())
             return false;
-        PersonVO other = (PersonVO) obj;
+        PersonDTO2 other = (PersonDTO2) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
@@ -105,8 +116,19 @@ public class PersonVO implements Serializable{
                 return false;
         } else if (!gender.equals(other.gender))
             return false;
+        if (birthday == null) {
+            if (other.birthday != null)
+                return false;
+        } else if (!birthday.equals(other.birthday))
+            return false;
         return true;
     }
+
+    
+
+    
+
+    
     
 }
 

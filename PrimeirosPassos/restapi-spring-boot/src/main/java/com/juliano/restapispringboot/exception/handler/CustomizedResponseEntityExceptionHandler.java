@@ -18,6 +18,7 @@ import com.juliano.restapispringboot.exception.ResourceNotFindException;
 @RestController
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler{
 
+    //tratamento de erro generico
     @ExceptionHandler(Exception.class)
     public final ResponseEntity <ExceptionResponse> handleAllExceptions (
         Exception ex, WebRequest request){
@@ -27,6 +28,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    //Tratamento erro objeto nao encontrado
     @ExceptionHandler(ResourceNotFindException.class)
     public final ResponseEntity <ExceptionResponse> handleNotFoundExceptions (
         Exception ex, WebRequest request){
@@ -35,6 +37,15 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
             
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
+
+    /* @ExceptionHandler(UnsupportedMathException.class)
+    public final ResponseEntity <ExceptionResponse> handleNotFoundExceptions2 (
+        Exception ex, WebRequest request){
+            ExceptionResponse exceptionResponse = new ExceptionResponse(
+                new Date(), ex.getMessage(), request.getDescription(false));
+            
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+    } */
 
 
 }
